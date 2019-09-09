@@ -1,3 +1,6 @@
+% rebase('views/base.tpl')
+% import model
+
 <html>
 <head>
     <meta charset="UTF-8">

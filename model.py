@@ -19,7 +19,7 @@ class Game:
         self.right_answers = 0
         self.counter = 0
 
-        with open("countries" + self.name + ".txt", 'r') as file:
+        with open("files/countries" + self.name + ".txt", 'r') as file:
             temp = file.readlines()
 
         for country in temp:
@@ -59,7 +59,7 @@ class Game:
         countries = []
         temp = []
 
-        with open("countries" + self.name + ".txt", 'r') as file:
+        with open("files/countries" + self.name + ".txt", 'r') as file:
             countries = file.readlines()
             i = 255
             for country in countries:
@@ -70,7 +70,7 @@ class Game:
                     temp.append(country[:-1] + ";" + str(i) + "\n")
                     i -= 1
         
-        with open("countries" + self.name + "Hash" + ".txt", 'w') as file:
+        with open("files/countries" + self.name + "Hash" + ".txt", 'w') as file:
             for country in temp:
                 file.write(country)
 
