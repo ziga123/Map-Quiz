@@ -1,10 +1,9 @@
-#import continents
 import random
-
+from pynput.mouse import Listener
 from bottle import run, route, template, static_file
 
 class Continent:
-    def __init__(self, name): # name je string
+    def __init__(self, name):
         self.countries = []
         self.name = name
 
@@ -18,7 +17,7 @@ class Continent:
                 self.countries.append(country[:-1])
             
 
-    def countryHash(self): # generate hashes for each countries, which can then be used to make a bitmap
+    def countryHash(self): # generate hashes for each countries, which can then be used to make a bitmap of the image
         countries = []
         temp = []
 
@@ -37,19 +36,25 @@ class Continent:
             for country in temp:
                 file.write(country)
 
+# checking for clicks
+def on_click(x, y, button, pressed):
+    if pressed:
+        print ('Mouse clicked at ({0}, {1}) with {2}'.format(x, y, button))
+
+
 @route('/start')
 def start():
     return template('startScreen')
+
+@route('/static/<filename>')
+def server_static(filename):
+    return static_file(filename, root="./Maps")
 
 @route('/game/<name>')
 def game(name):
     continent = Continent('Europe')
     country = random.choice(continent.countries)
     return template('game', name=name, country=country, i=2, num = len(continent.countries))
-
-@route('/static/<filename>')
-def server_static(filename):
-    return static_file(filename, root="./Maps")
 
 if __name__ == '__main__':
     run(debug=True, reloader=True)
