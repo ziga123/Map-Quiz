@@ -8,6 +8,9 @@
     </head>
 
     <style>
+        html{
+            font-family: "Times New Roman", Times, serif !important;
+        }
         body{
             width: 40%;
             margin: auto;
@@ -20,10 +23,24 @@
         h2{
             font-size: 50px;
         }
+        input[type=text] {
+            background-color: white;
+            border-radius: 4px;
+            height: 40px;
+            font-size: 30px;
+            font-weight: bold;
+            font-family: "Times New Roman", Times, serif;
+            width: 240px;
+            background-position: 10px 10px;
+            background-width: 10px;
+            background-height: 10px;
+            background-repeat: no-repeat;
+        }
         .headerStyle{
             margin-left: auto;
             margin-right: auto;
             margin-top: 10px;
+            font-size: 50px;
             height: 60px;
             text-align: center;
             border-radius: 25px;
@@ -56,6 +73,11 @@
             background: linear-gradient(to left, #094164, #467565);
             padding: 10px;
             border-radius: 25px;
+        }
+        .windowTextStyle{
+            text-align: center;
+            font-size: 40px;
+            font-weight: bold;
         }
         .gradient-box {
             display: flex;

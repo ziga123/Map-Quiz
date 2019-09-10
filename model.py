@@ -1,7 +1,7 @@
 import json
 import random
 
-#konstante za preverjanje
+#constants for game state, maybe useful for further implementations
 RIGHT_ANSWER = '+'
 WRONG_ANSWER = '-'
 NOT_ANSWERED = 'n'
@@ -10,6 +10,11 @@ START = 's'
 FINISHED = 'f'
 
 EUROPE = 'e'
+ASIA = 'a'
+AFRICA = 'af'
+SOUTH_AMERICA = 'sa'
+CENTRAL_AMERICA = 'ca'
+USA = 'u'
 
 
 class Game:
@@ -20,17 +25,20 @@ class Game:
         self.uncheckedCountries = []
         self.right_answers = 0
         self.counter = 0
+        self.tries_left = 3
 
         with open("files/countries" + self.name + ".txt", 'r') as file:
             temp = file.readlines()
 
         for country in temp:
             if country == temp[-1]:
-                self.countries.update({country : 'n'})
-                self.uncheckedCountries.append(country)
+                self.countries.update({country.lower() : 'n'})
+                self.uncheckedCountries.append(country.lower())
             else:
-                self.countries.update({country[:-1] : 'n'})
-                self.uncheckedCountries.append(country[:-1])
+                self.countries.update({country[:-1].lower() : 'n'})
+                self.uncheckedCountries.append(country[:-1].lower())
+
+        self.current_country = self.get_new_country()
 
 
     def end(self):
@@ -38,25 +46,42 @@ class Game:
 
     
     def get_new_country(self):
-        return random.choice(self.uncheckedCountries)
+        temp = random.choice(self.uncheckedCountries) # so no problems arise when loading pictures
+        return temp.replace(" ", "")
         
 
-    def update_entries(self, country, click_value):
+    def update_entries(self, country):
+        if self.tries_left == 1 and country != self.current_country:
+            self.countries[self.current_country] = WRONG_ANSWER
+            self.tries_left = 3
+            self.counter += 1
+            self.uncheckedCountries.remove(self.current_country)
+            self.current_country = self.get_new_country()
+
+        elif self.tries_left == 1 and country == self.current_country:
+            self.countries[self.current_country] = RIGHT_ANSWER
+            self.tries_left = 3
+            self.counter += 1
+            self.right_answers += 1
+            self.uncheckedCountries.remove(self.current_country)
+            self.current_country = self.get_new_country()
+
+        elif self.tries_left != 1 and country != self.current_country:
+            self.tries_left -= 1
+
+        elif self.tries_left != 1 and country == self.current_country:
+            self.countries[self.current_country] = RIGHT_ANSWER
+            self.tries_left = 3
+            self.counter += 1
+            self.right_answers += 1
+            self.uncheckedCountries.remove(self.current_country)
+            self.current_country = self.get_new_country()
+        
         if self.end():
             return FINISHED
-        elif click_value:
-            self.countries[country] = '+'
-            self.right_answers += 1
-            self.uncheckedCountries.remove(country)
-            self.counter += 1
-            return RIGHT_ANSWER
-        else:
-            self.countries[country] = '-'
-            self.uncheckedCountries.remove(country)
-            self.counter += 1
-            return WRONG_ANSWER   
 
 
+    # note: wanted to make the game work in a way where you click on a country you want
     def countryHash(self): # generates hashes for each country, which can then be used to make a bitmap
         countries = []
         temp = []
@@ -102,10 +127,10 @@ class MapQuiz:
         return new_id
 
 
-    def guess(self, game_id, country, click_value):
+    def guess(self, game_id, country):
         self.load_games_from_file()
         (game, _) = self.games[game_id]
-        new_guess = game.update_entries(country, click_value)
+        new_guess = game.update_entries(country)
         self.games[game_id] = (game, new_guess)
         self.write_to_file()
 
