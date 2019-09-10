@@ -1,4 +1,3 @@
-
 import json
 import random
 
@@ -9,6 +8,9 @@ NOT_ANSWERED = 'n'
 
 START = 's'
 FINISHED = 'f'
+
+EUROPE = 'e'
+
 
 class Game:
 
@@ -114,18 +116,19 @@ class MapQuiz:
             games = {}
             for game_id in encrypted_games:
                 game = encrypted_games[game_id]
-                games[int(game_id)] = (Game(game["name"]), game["poskus"])
+                games[int(game_id)] = (Game(game["name"]), game["guess"])
             self.games = games
+        return
 
 
     def write_to_file(self):
-        with open(self.gameFile) as file:
+        with open(self.gameFile, 'w') as file:
             encrypted_games = {}
             for game_id in self.games:
                 (game, guess) = self.games[game_id]
                 encrypted_games[game_id] = {"name" : game.name, "countries" : game.uncheckedCountries, "guess" : guess}
             json.dump(encrypted_games, file)
-    
+        return
 
     
 

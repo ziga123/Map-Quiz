@@ -4,7 +4,7 @@
 <div class="startMenu">
     <h1 style="color: white">Map quiz</h1>
     <h2 style="color: white; margin-top: -80px;">Choose a group of countries!</h2>
-    <form action="new_game" method="post">
+    <form action="new_game/{{model.EUROPE}}" method="post">
         <button class="selectButton" type="submit">Europe</button>
     </form>
     <form action="new_game" method="post">
