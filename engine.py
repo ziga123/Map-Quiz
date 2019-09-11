@@ -60,13 +60,13 @@ def guess():
     game_id = bottle.request.get_cookie("game_id", secret=KEY)
     mapquiz.guess(game_id, bottle.request.forms["country"])
     if mapquiz.games[game_id][1] == model.FINISHED:
-        bottle.redirect('/end/')
+        bottle.redirect('/game/end/')
     else:
         bottle.redirect('/game/')
     return
 
 
-@bottle.post('/game/end/')
+@bottle.get('/game/end/')
 def end():
     game_id = bottle.request.get_cookie("game_id", secret=KEY)
     (game, guess) = mapquiz.games[game_id]

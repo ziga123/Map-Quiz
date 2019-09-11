@@ -45,18 +45,19 @@
         .headerStyle{
             margin-left: auto;
             margin-right: auto;
-            margin-top: 10px;
+            margin-top: -20px;
             font-size: 50px;
             height: 60px;
             text-align: center;
-            border-radius: 25px;
-            background: linear-gradient(to left, #094164, #467565);
             color: white;
         }
         .main{
             width: 1900px;
             height: 1000px;
             margin-left: -520px;
+        }
+        .main_title{
+            height: 20px;
         }
         .centerDiv{
             float: left;
@@ -147,8 +148,17 @@
         .btn:hover{
             color: #094164;
         }
+        .module-border-wrap-title{
+            max-width: 1000px;
+            padding: 1rem;
+            position: relative;
+            background: linear-gradient(to left, #094164, #467565);
+            padding: 3px;
+            margin-top: 10px;
+            border-radius: 1em;
+        }
         .module-border-wrap{
-            max-width: 600px;
+            max-width: 800px;
             padding: 1rem;
             position: relative;
             background: linear-gradient(to left, #094164, #467565);
@@ -165,7 +175,7 @@
             height: 400px;
         }
         .startWindow{
-            height: 800px;
+            height: 900px;
         }
         .topWindows{
             margin-top: 85px;
@@ -187,8 +197,8 @@
         .startMenu{
             text-align: center;
             width: 1000px;
-            margin-left: -50px;
-            margin-top: 150px;
+            margin-left: 0px;
+            margin-top: 50px;
         }
         .endMenu{
             text-align: center;
@@ -197,9 +207,13 @@
             margin-top: 250px;
             margin-left: 100px;
         }
-        .startText{
+        .title{
             color: white;
             margin-top: -45px;
+        }
+        .title2{
+            color: white;
+            margin-top: -60px;
         }
         .endingText{
             margin-top: -20px;

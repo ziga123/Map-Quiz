@@ -46,7 +46,6 @@ class Game:
         for country in self.checkedCountries:
             if country in temp:
                 temp.remove(country)
-        
         return temp == []
 
     

@@ -17,25 +17,33 @@
         </div>
     </div>
     <div class="centerDiv">
-        % if game.name == "Europe":
-            <h2 class="headerStyle">Map Quiz - Europe</h2>
-        % elif game.name == "Asia":
-            <h2 class="headerStyle">Map Quiz - Asia</h2>
-        % elif game.name == "Africa":
-            <h2 class="headerStyle">Map Quiz - Africa</h2>
-        % elif game.name == "South America":
-            <h2 class="headerStyle">Map Quiz - South America/h2>
-        % elif game.name == "Central America":
-            <h2 class="headerStyle">Map Quiz - Central America</h2>
-        % elif game.name == "USA":
-            <h2 class="headerStyle">Map Quiz - USA</h2>
-        % end
+        <div class="module-border-wrap-title">
+            <div class="module main_title">
+                % if game.name == "Europe":
+                    <h2 class="headerStyle">Map Quiz - Europe</h2>
+                % elif game.name == "Asia":
+                    <h2 class="headerStyle">Map Quiz - Asia</h2>
+                % elif game.name == "Africa":
+                    <h2 class="headerStyle">Map Quiz - Africa</h2>
+                % elif game.name == "South America":
+                    <h2 class="headerStyle">Map Quiz - South America/h2>
+                % elif game.name == "Central America":
+                    <h2 class="headerStyle">Map Quiz - Central America</h2>
+                % elif game.name == "USA":
+                    <h2 class="headerStyle">Map Quiz - USA</h2>
+                % end
+            </div>
+        </div>
 
         <img class="imgStyle" src="/static/{{game.get_picture_name()}}.jpg" />
     </div>
     <div class="sideDiv">
         <div class="sideWindow topWindows gradient-box">
-            <p class="windowTextStyle">You got {{game.right_answers}} / {{len(game.countries)}} right so far!</p>
+            % temp = len(game.countries) - game.counter - 1
+            <p class="windowTextStyle">
+            You got {{game.right_answers}} / {{len(game.countries)}} right so far!
+            {{temp}} countries left!
+            </p>
         </div>
         <div class="sideWindow bottomWindows gradient-box">
             <form class="windowTextStyle" action="/guess/" method="post">
