@@ -4,9 +4,9 @@ import random
 #constants for game state, maybe useful for further implementations
 RIGHT_ANSWER = '+'
 WRONG_ANSWER = '-'
-NOT_ANSWERED = 'n'
 
 START = 's'
+PLAYING = 'p'
 FINISHED = 'f'
 
 EUROPE = 'e'
@@ -19,69 +19,95 @@ USA = 'u'
 
 class Game:
 
-    def __init__(self, name):  # name is a string
+    def __init__(self, name, checkedCountries=[], right_answers=0, 
+                 current_country='', tries_left=3, counter=0):
         self.name = name
-        self.countries = {}
-        self.uncheckedCountries = []
-        self.right_answers = 0
-        self.counter = 0
-        self.tries_left = 3
+        self.countries = []
+        self.checkedCountries = checkedCountries
+        self.right_answers = right_answers
+        self.current_country = current_country
+        self.tries_left = tries_left
+        self.counter = counter
 
         with open("files/countries" + self.name + ".txt", 'r') as file:
             temp = file.readlines()
 
         for country in temp:
             if country == temp[-1]:
-                self.countries.update({country.lower() : 'n'})
-                self.uncheckedCountries.append(country.lower())
+                self.countries.append(country.lower())
             else:
-                self.countries.update({country[:-1].lower() : 'n'})
-                self.uncheckedCountries.append(country[:-1].lower())
-
-        self.current_country = self.get_new_country()
+                self.countries.append(country[:-1].lower())
 
 
     def end(self):
-        return self.counter == len(self.countries)
+        temp = []
+        for country in self.countries:
+            temp.append(country)
+        for country in self.checkedCountries:
+            if country in temp:
+                temp.remove(country)
+        
+        return temp == []
 
     
     def get_new_country(self):
-        temp = random.choice(self.uncheckedCountries) # so no problems arise when loading pictures
-        return temp.replace(" ", "")
+        temp = []
+        for country in self.countries:
+            temp.append(country)
+        for country in self.checkedCountries:
+            if country in temp:
+                temp.remove(country)
         
+        if temp != []:
+            return random.choice(temp)
+        else:
+            return
+
+
+    def get_picture_name(self):
+        return self.current_country.replace(" ", "")
+
 
     def update_entries(self, country):
-        if self.tries_left == 1 and country != self.current_country:
-            self.countries[self.current_country] = WRONG_ANSWER
-            self.tries_left = 3
-            self.counter += 1
-            self.uncheckedCountries.remove(self.current_country)
-            self.current_country = self.get_new_country()
-
-        elif self.tries_left == 1 and country == self.current_country:
-            self.countries[self.current_country] = RIGHT_ANSWER
-            self.tries_left = 3
-            self.counter += 1
-            self.right_answers += 1
-            self.uncheckedCountries.remove(self.current_country)
-            self.current_country = self.get_new_country()
-
-        elif self.tries_left != 1 and country != self.current_country:
+        if self.tries_left != 1 and country != self.current_country:
             self.tries_left -= 1
+            return WRONG_ANSWER
 
         elif self.tries_left != 1 and country == self.current_country:
-            self.countries[self.current_country] = RIGHT_ANSWER
             self.tries_left = 3
             self.counter += 1
             self.right_answers += 1
-            self.uncheckedCountries.remove(self.current_country)
+            self.checkedCountries.append(self.current_country)
             self.current_country = self.get_new_country()
+            if self.end():
+                return FINISHED
+            else:
+                return RIGHT_ANSWER
+
+        elif self.tries_left == 1 and country != self.current_country:
+            self.tries_left = 3
+            self.counter += 1
+            self.checkedCountries.append(self.current_country)
+            self.current_country = self.get_new_country()
+            if self.end():
+                return FINISHED
+            else:
+                return WRONG_ANSWER
+
+        elif self.tries_left == 1 and country == self.current_country:
+            self.tries_left = 3
+            self.counter += 1
+            self.right_answers += 1
+            self.checkedCountries.append(self.current_country)
+            self.current_country = self.get_new_country()
+            if self.end():
+                return FINISHED
+            else:
+                return PLAYING
         
-        if self.end():
-            return FINISHED
 
 
-    # note: wanted to make the game work in a way where you click on a country you want
+    # note: wanted to make the game work in a way where you click on the countries
     def countryHash(self): # generates hashes for each country, which can then be used to make a bitmap
         countries = []
         temp = []
@@ -121,6 +147,7 @@ class MapQuiz:
     def new_game(self, name_of_continent):
         self.load_games_from_file()
         game = Game(name_of_continent)
+        game.current_country = game.get_new_country()
         new_id = self.new_game_id()
         self.games[new_id] = (game, START)
         self.write_to_file()
@@ -141,7 +168,9 @@ class MapQuiz:
             games = {}
             for game_id in encrypted_games:
                 game = encrypted_games[game_id]
-                games[int(game_id)] = (Game(game["name"]), game["guess"])
+                games[int(game_id)] = (Game(game["name"], game["checkedCountries"], 
+                                       game["right_answers"], game["current_country"], 
+                                       game["tries_left"], game["counter"]), game["guess"])
             self.games = games
         return
 
@@ -151,7 +180,9 @@ class MapQuiz:
             encrypted_games = {}
             for game_id in self.games:
                 (game, guess) = self.games[game_id]
-                encrypted_games[game_id] = {"name" : game.name, "countries" : game.uncheckedCountries, "guess" : guess}
+                encrypted_games[game_id] = {"name" : game.name, "checkedCountries" : game.checkedCountries, 
+                                            "right_answers" : game.right_answers, "current_country" : game.current_country, 
+                                            "tries_left" : game.tries_left, "counter" : game.counter, "guess" : guess}
             json.dump(encrypted_games, file)
         return
 

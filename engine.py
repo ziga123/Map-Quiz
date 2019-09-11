@@ -16,6 +16,7 @@ def reset():
     bottle.redirect('/')
     return
 
+
 # starts the game with the continent chosen
 @bottle.post('/new_game/<continent>')
 def start_new_game(continent):
@@ -52,15 +53,27 @@ def show_game():
     (game, guess) = mapquiz.games[game_id]
     return bottle.template('views/game.tpl', game=game, game_id=game_id, guess=guess)
 
+
 # this function runs when we've submited an answer
 @bottle.post('/guess/')
 def guess():
     game_id = bottle.request.get_cookie("game_id", secret=KEY)
-    mapquiz.guess(game_id, country)
-    bottle.redirect('/game/')
+    mapquiz.guess(game_id, bottle.request.forms["country"])
+    if mapquiz.games[game_id][1] == model.FINISHED:
+        bottle.redirect('/end/')
+    else:
+        bottle.redirect('/game/')
     return
 
 
+@bottle.post('/game/end/')
+def end():
+    game_id = bottle.request.get_cookie("game_id", secret=KEY)
+    (game, guess) = mapquiz.games[game_id]
+    return bottle.template('views/end.tpl', game=game, game_id=game_id, guess=guess)
+
+
+# for loading picture
 @bottle.get("/static/<filename>")
 def server_static(filename):
     return bottle.static_file(filename, root="./images")

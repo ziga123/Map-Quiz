@@ -18,23 +18,29 @@
             background-size: cover;
         }
         h1{
-            font-size: 150px;
+            font-size: 120px;
         }
         h2{
             font-size: 50px;
         }
-        input[type=text] {
+        input[type=text]{
             background-color: white;
             border-radius: 4px;
             height: 40px;
             font-size: 30px;
             font-weight: bold;
             font-family: "Times New Roman", Times, serif;
-            width: 240px;
+            width: 305px;
+            margin-bottom: 50px;
+            margin-left: -15px;
             background-position: 10px 10px;
             background-width: 10px;
             background-height: 10px;
             background-repeat: no-repeat;
+        }
+        .answerText{
+            margin-bottom: 15px;
+            margin-left: -15px;
         }
         .headerStyle{
             margin-left: auto;
@@ -110,6 +116,57 @@
             /* !importanté */
             background: linear-gradient(to left, #094164, #467565);
         }
+        .buttonWrap{
+            max-width: 300px;
+            position: relative;
+            background: linear-gradient(to left, #094164, #467565);
+            padding: 3px;
+            border-radius: 1em;
+        }
+        .buttonModule{
+            background: #000;
+            color: white;
+            padding: 10px;
+            border-radius: inherit;
+        }
+        .btn {
+            border: none;
+            background-color: inherit;
+            font-size: 25px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            font-size: 25px;
+            display: inline-block;
+        }
+        .endButtons{
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+        }
+        .btn:hover{
+            color: #094164;
+        }
+        .module-border-wrap{
+            max-width: 600px;
+            padding: 1rem;
+            position: relative;
+            background: linear-gradient(to left, #094164, #467565);
+            padding: 3px;
+            border-radius: 1em;
+        }
+        .module{
+            background: #000;
+            color: white;
+            padding: 2rem;
+            border-radius: inherit;
+        }
+        .endWindow{
+            height: 400px;
+        }
+        .startWindow{
+            height: 800px;
+        }
         .topWindows{
             margin-top: 85px;
         }
@@ -130,9 +187,23 @@
         .startMenu{
             text-align: center;
             width: 1000px;
-            background: rgba(76, 175, 80, 0.3);
             margin-left: -50px;
             margin-top: 150px;
+        }
+        .endMenu{
+            text-align: center;
+            width: 800px;
+            height: 700px;
+            margin-top: 250px;
+            margin-left: 100px;
+        }
+        .startText{
+            color: white;
+            margin-top: -45px;
+        }
+        .endingText{
+            margin-top: -20px;
+            color: white;
         }
         .selectButton{
             float: left;
