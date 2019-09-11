@@ -13,7 +13,6 @@ Mozambique
 Ghana
 Angola
 Ivory Coast
-Madagascar
 Cameroon
 Niger
 Burkina Faso
@@ -29,27 +28,20 @@ Tunisia
 Guinea
 Benin
 Burundi
-South Sudan
 Togo
 Eritrea
 Sierra Leone
 Libya
-Republic of the Congo
+Congo
 Central African Republic
 Liberia
 Mauritania
 Namibia
 Botswana
 Lesotho
-Gambia
 Gabon
-Guinea-Bissau
-Mauritius
+Guinea Bissau
 Equatorial Guinea
 Eswatini
 Djibouti
-Comoros
-Cape Verde
 Western Sahara	
-Sao Tome and Príncipe
-Seychelles	

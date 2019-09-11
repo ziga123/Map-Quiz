@@ -24,20 +24,12 @@ def start_new_game(continent):
         game_id = mapquiz.new_game("Europe")
         bottle.response.set_cookie("game_id", game_id, secret=KEY, path="/")
         bottle.redirect("/game/")
-    if continent == model.ASIA:
-        game_id = mapquiz.new_game("Asia")
-        bottle.response.set_cookie("game_id", game_id, secret=KEY, path="/")
-        bottle.redirect("/game/")
     if continent == model.AFRICA:
         game_id = mapquiz.new_game("Africa")
         bottle.response.set_cookie("game_id", game_id, secret=KEY, path="/")
         bottle.redirect("/game/")
     if continent == model.SOUTH_AMERICA:
-        game_id = mapquiz.new_game("South America")
-        bottle.response.set_cookie("game_id", game_id, secret=KEY, path="/")
-        bottle.redirect("/game/")
-    if continent == model.CENTRAL_AMERICA:
-        game_id = mapquiz.new_game("Central America")
+        game_id = mapquiz.new_game("SouthAmerica")
         bottle.response.set_cookie("game_id", game_id, secret=KEY, path="/")
         bottle.redirect("/game/")
     if continent == model.USA:
@@ -74,9 +66,13 @@ def end():
 
 
 # for loading picture
-@bottle.get("/static/<filename>")
-def server_static(filename):
-    return bottle.static_file(filename, root="./images")
+@bottle.get("/static/<continent>/<filename>")
+def server_static(continent, filename):
+    return bottle.static_file(filename, root="./images/" + continent)
 
+
+@bottle.get("/static/<filename>")
+def server_static2(filename):
+    return bottle.static_file(filename, root="./images")
 
 bottle.run(debug=True, reloader=True)

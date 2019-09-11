@@ -175,7 +175,7 @@
             height: 400px;
         }
         .startWindow{
-            height: 900px;
+            height: 800px;
         }
         .topWindows{
             margin-top: 85px;
@@ -185,6 +185,7 @@
         }
         .imgStyle{
             display: block;
+            width: 928px;
             margin-left: auto;
             margin-right: auto;
             margin-top: 35px;
@@ -209,7 +210,7 @@
         }
         .title{
             color: white;
-            margin-top: -45px;
+            margin-top: -15px;
         }
         .title2{
             color: white;

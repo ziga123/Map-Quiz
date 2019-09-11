@@ -14,12 +14,6 @@
             </div>
 
             <div class="buttonWrap endButtons">
-                <form class="buttonModule" action="new_game/{{model.ASIA}}" method="post">
-                    <button class="btn" type="submit">Asia</button>
-                </form>
-            </div>
-
-            <div class="buttonWrap endButtons">
                 <form class="buttonModule" action="new_game/{{model.AFRICA}}" method="post">
                     <button class="btn" type="submit">Africa</button>
                 </form>
@@ -28,12 +22,6 @@
             <div class="buttonWrap endButtons">
                 <form class="buttonModule" action="new_game/{{model.SOUTH_AMERICA}}" method="post">
                     <button class="btn" type="submit">South America</button>
-                </form>
-            </div>
-
-            <div class="buttonWrap endButtons">
-                <form class="buttonModule" action="new_game/{{model.CENTRAL_AMERICA}}" method="post">
-                    <button class="btn" type="submit">Central America</button>
                 </form>
             </div>
 
