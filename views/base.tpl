@@ -71,8 +71,18 @@
         }
         .sideWindow{
             display: block;
-            width: 350px;
             height: 130px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 1rem;
+            position: relative;
+            background: linear-gradient(to left, #094164, #467565);
+            padding: 10px;
+            border-radius: 25px;
+        }
+        .sideWindow2{
+            display: block;
+            height: 350px;
             margin-left: auto;
             margin-right: auto;
             padding: 1rem;

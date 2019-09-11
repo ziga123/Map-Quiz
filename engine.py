@@ -75,4 +75,5 @@ def server_static(continent, filename):
 def server_static2(filename):
     return bottle.static_file(filename, root="./images")
 
+
 bottle.run(debug=True, reloader=True)

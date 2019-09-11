@@ -15,6 +15,13 @@
                 % end
             </p>
         </div>
+        <div class="sideWindow2 bottomWindows gradient-box">
+            <div class="buttonWrap endButtons">
+                <form class="buttonModule" action="/" method="post">
+                    <button class="btn" type="submit">Back to start menu</button>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="centerDiv">
         <div class="module-border-wrap-title">
@@ -56,6 +63,19 @@
                 <p class="windowTextStyle answerText">Type answer in lowercase and press Enter:</p>
                 <input type="text" name="country" placeholder="enter country.." autofocus>
             </form>
+        </div>
+        <div class="sideWindow2 bottomWindows gradient-box">
+            <p>
+                <span style="font-size: 26px">For avoiding ambiguity, refer to this list:</span>
+                <br>
+                % for country in game.countries:
+                    % if country == game.countries[-1]:
+                        {{country}}.
+                    % else:
+                        {{country}},
+                    % end
+                % end
+            </p>
         </div>
     </div>  
 </div>
